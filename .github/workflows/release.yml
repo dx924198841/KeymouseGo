@@ -15,7 +15,7 @@ env:
 
 jobs:
   build-windows:
-    runs-on: windows-2019  # 使用Windows Server 2019以更好地兼容Windows 7
+    runs-on: windows-2022  # 切换到Windows Server 2022，仍保持Windows 7兼容性
     steps:
       - uses: actions/checkout@main
       - name: Set up Python 3.10
@@ -24,11 +24,11 @@ jobs:
           python-version: "3.10"
       - name: Install dependencies
         run: |
-          pip3 install -r requirements-windows.txt
+          pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements-windows.txt  # 使用清华镜像加速安装
           pip3 install pyinstaller
       - name: Bundle Packages
         run: |
-          pyinstaller -Fw --icon=Mondrian.ico --add-data './assets;assets' --win-private-assemblies KeymouseGo.py  # 添加--win-private-assemblies参数以兼容Windows 7
+          pyinstaller -Fw --icon=Mondrian.ico --add-data './assets;assets' --win-private-assemblies --target-architecture=32bit KeymouseGo.py  # 添加--target-architecture参数确保32位兼容性，保持--win-private-assemblies参数以兼容Windows 7
       - name: Copy artifact
         run: |
           mkdir artifact && mv dist/KeymouseGo.exe ./artifact/KeymouseGo${{ env.keymousego-version }}-win.exe
