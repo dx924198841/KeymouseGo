@@ -1,0 +1,11 @@
+# Python3.10
+
+pywin32==302
+pyWinhook==1.6.2
+pyperclip==1.8.0
+future==0.18.3
+PySide6==6.4.3  # 降级以兼容Windows 7
+qt-material==2.11
+loguru==0.6.0
+json5==0.9.10
+pyinstaller==5.13.2  # 指定版本以兼容Windows 7
